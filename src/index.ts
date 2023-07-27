@@ -35,7 +35,7 @@ mongoose.connection.once("connected", () => {
 });
 
 // helper check
-app.get("/hello", (req: express.Request, res: express.Response) => {
+app.get("/help", (req: express.Request, res: express.Response) => {
   res.status(200).json({ message: "Help Check", status: "OK" });
 });
 
