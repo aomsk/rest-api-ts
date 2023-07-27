@@ -1,80 +1,98 @@
 FORMAT: 1A
 HOST: https://polls.apiblueprint.org/
 
-# Sipang K.
-
-Polls is a simple API allowing consumers to view polls and vote in them.
-
-## Questions Collection [/questions]
-
-### List All Questions [GET]
+# API Docs
+### Help Check [GET]
+http://localhost:8080/help
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+        {
+            "message": "Help Check",
+            "status": "OK"
+        }
+### Create New User [POST]
+http://localhost:8080/auth/register
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "email": "test@gmail.com",
+            "password": "1234",
+            "username": "test1"
         }
 
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
++ Response 200 (application/json)
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "username": "aomsk1",
+                "email": "aomsk1@gmail.com",
+                "authentication": {
+                    "password": "4a6b3699661c8da1c6c6413755bebff1e02d30e74d16bbbfd77b1e808ae50337",
+                    "salt": "NGUSNi61A+MEjEPr1LklU+Mx3iqzi6Vs54eT8fngXTJ6bJN04UwVlwA6r6pLy9/JYwXTSFf0P+fbYavhjqXYOpSHBMDkYxM8ALebg4k/c12pgEGiCF0ieTloXPJZH4nShkZqW6DwYZjXWCFpV8Gcgqnwb3e6Dd66O1gHn/CXFxI="
+                },
+                "_id": "64c2411bd66b2131106332d9",
+                "__v": 0
             }
+
+### Login [POST]
+http://localhost:8080/auth/login
+
++ Request (application/json)
+
+        {
+            "email": "test@gmail.com",
+            "password": "1234",
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "authentication": {
+                    "password": "4a6b3699661c8da1c6c6413755bebff1e02d30e74d16bbbfd77b1e808ae50337",
+                    "salt": "NGUSNi61A+MEjEPr1LklU+Mx3iqzi6Vs54eT8fngXTJ6bJN04UwVlwA6r6pLy9/JYwXTSFf0P+fbYavhjqXYOpSHBMDkYxM8ALebg4k/c12pgEGiCF0ieTloXPJZH4nShkZqW6DwYZjXWCFpV8Gcgqnwb3e6Dd66O1gHn/CXFxI=",
+                    "sessionToken": "7f66bf35a3e0f3daa3a01d1efe1e87363142aa4fea98396d206b7d24a2dba4e5"
+                },
+                "_id": "64c2411bd66b2131106332d9",
+                "username": "test1",
+                "email": "test@gmail.com",
+                "__v": 0
+            }
+
+### Get All User[GET]
+#### Must login first
+
+http://localhost:8080/users
+
++ Response 200 (application/json)
+
+### Delete User By ID [DELETE]
+#### Must login first
+
+http://localhost:8080/users/:id
++ Parameters
+    + id (string) - ID of the User
+
++ Response 200 (application/json)
+
+### Update User By ID [PACTH]
+#### Must login first
+
+http://localhost:8080/users/:id
++ Parameters
+    + id (string) - ID of the User
+
++ Response 200 (application/json)
+
+### Logout [GET]
+#### Must login first
+
+http://localhost:8080/users/:id
++ Parameters
+    + id (string) - ID of the User
+
++ Response 200 (application/json)
